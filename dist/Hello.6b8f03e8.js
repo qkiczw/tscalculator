@@ -120,7 +120,20 @@ parcelRequire = (function (modules, cache, entry, globalName) {
 })({"../src/Hello.ts":[function(require,module,exports) {
 "use strict";
 
-console.log('Hello!!');
+var button = document.querySelector("#count");
+if (button !== null) {
+  if (button instanceof HTMLButtonElement) {
+    button.addEventListener("click", function (event) {
+      event.preventDefault();
+      event.stopPropagation();
+      console.log("Cliked!!!");
+    });
+  } else {
+    throw new Error("Html Element is not a button");
+  }
+} else {
+  throw new Error("Button for exchange not found!");
+}
 },{}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
