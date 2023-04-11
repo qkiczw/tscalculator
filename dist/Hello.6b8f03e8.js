@@ -121,12 +121,28 @@ parcelRequire = (function (modules, cache, entry, globalName) {
 "use strict";
 
 var button = document.querySelector("#count");
+var goldCoins = document.querySelector('#gold-coins');
+var silverCoins = document.querySelector('#silver-coins');
+var copperCoins = document.querySelector('#copper-coins');
+// Temporary variables
+var inputGoldValue;
+var inputSilverValue;
+var inputCopperValue;
 if (button !== null) {
   if (button instanceof HTMLButtonElement) {
     button.addEventListener("click", function (event) {
       event.preventDefault();
       event.stopPropagation();
-      console.log("Cliked!!!");
+      if (goldCoins !== null && goldCoins instanceof HTMLInputElement) {
+        inputGoldValue = goldCoins.valueAsNumber;
+      }
+      if (silverCoins !== null && silverCoins instanceof HTMLInputElement) {
+        inputSilverValue = silverCoins.valueAsNumber;
+      }
+      if (copperCoins !== null && copperCoins instanceof HTMLInputElement) {
+        inputCopperValue = copperCoins.valueAsNumber;
+      }
+      console.log("Input Values: gold - ".concat(inputGoldValue, ", silver - ").concat(inputSilverValue, ", copper - ").concat(inputCopperValue));
     });
   } else {
     throw new Error("Html Element is not a button");
