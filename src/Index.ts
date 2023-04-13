@@ -1,4 +1,7 @@
+import { Exchanger } from "./Exchanger";
+
 const button: HTMLElement | null = document.querySelector("#count");
+const result: HTMLElement | null = document.querySelector(".result");
 
 initEventListener();
 
@@ -9,13 +12,21 @@ function initEventListener() {
         event.preventDefault();
         event.stopPropagation();
 
-        // getTempGoldCoins();
-        // getTempSilverCoins();
-        // getTempCooperCoins();
-
-        console.log(
-          `values: ${getTempGoldCoins()}, ${getTempSilverCoins()}, ${getTempCooperCoins()}`
+        const exchange : Exchanger = new Exchanger(
+          getTempGoldCoins(),
+          getTempSilverCoins(),
+          getTempCooperCoins()
         );
+
+        console.log(`all to copper: ${exchange.allCoinsToCopper()}`);
+
+        if (result !== null && result instanceof HTMLElement) {
+          result.innerHTML = `${exchange.allCoinsToCopper()}`;
+        }
+
+        // console.log(
+        //   `values: ${getTempGoldCoins()}, ${getTempSilverCoins()}, ${getTempCooperCoins()}`
+        // );
       });
     } else {
       throw new Error("Html Element is not a button");
