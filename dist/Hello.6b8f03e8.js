@@ -121,34 +121,48 @@ parcelRequire = (function (modules, cache, entry, globalName) {
 "use strict";
 
 var button = document.querySelector("#count");
-var goldCoins = document.querySelector('#gold-coins');
-var silverCoins = document.querySelector('#silver-coins');
-var copperCoins = document.querySelector('#copper-coins');
-// Temporary variables
-var inputGoldValue;
-var inputSilverValue;
-var inputCopperValue;
-if (button !== null) {
-  if (button instanceof HTMLButtonElement) {
-    button.addEventListener("click", function (event) {
-      event.preventDefault();
-      event.stopPropagation();
-      if (goldCoins !== null && goldCoins instanceof HTMLInputElement) {
-        inputGoldValue = goldCoins.valueAsNumber;
-      }
-      if (silverCoins !== null && silverCoins instanceof HTMLInputElement) {
-        inputSilverValue = silverCoins.valueAsNumber;
-      }
-      if (copperCoins !== null && copperCoins instanceof HTMLInputElement) {
-        inputCopperValue = copperCoins.valueAsNumber;
-      }
-      console.log("Input Values: gold - ".concat(inputGoldValue, ", silver - ").concat(inputSilverValue, ", copper - ").concat(inputCopperValue));
-    });
+initEventListener();
+function initEventListener() {
+  if (button !== null) {
+    if (button instanceof HTMLButtonElement) {
+      button.addEventListener("click", function (event) {
+        event.preventDefault();
+        event.stopPropagation();
+        // getTempGoldCoins();
+        // getTempSilverCoins();
+        // getTempCooperCoins();
+        console.log("values: ".concat(getTempGoldCoins(), ", ").concat(getTempSilverCoins(), ", ").concat(getTempCooperCoins()));
+      });
+    } else {
+      throw new Error("Html Element is not a button");
+    }
   } else {
-    throw new Error("Html Element is not a button");
+    throw new Error("Button for exchange not found!");
   }
-} else {
-  throw new Error("Button for exchange not found!");
+}
+function getTempGoldCoins() {
+  var goldCoins = document.querySelector("#gold-coins");
+  if (goldCoins !== null && goldCoins instanceof HTMLInputElement) {
+    return goldCoins.valueAsNumber;
+  } else {
+    throw new Error("Html Element is null or wrong");
+  }
+}
+function getTempSilverCoins() {
+  var silverCoins = document.querySelector("#silver-coins");
+  if (silverCoins !== null && silverCoins instanceof HTMLInputElement) {
+    return silverCoins.valueAsNumber;
+  } else {
+    throw new Error("Html Element is null or wrong");
+  }
+}
+function getTempCooperCoins() {
+  var copperCoins = document.querySelector("#copper-coins");
+  if (copperCoins !== null && copperCoins instanceof HTMLInputElement) {
+    return copperCoins.valueAsNumber;
+  } else {
+    throw new Error("Html Element is null or wrong");
+  }
 }
 },{}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
@@ -175,7 +189,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51095" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49799" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
