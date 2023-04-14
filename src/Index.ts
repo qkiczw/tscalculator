@@ -12,21 +12,17 @@ function initEventListener() {
         event.preventDefault();
         event.stopPropagation();
 
-        const exchange : Exchanger = new Exchanger(
-          getTempGoldCoins(),
-          getTempSilverCoins(),
-          getTempCooperCoins()
-        );
+        getCoins("copper");
 
-        console.log(`all to copper: ${exchange.allCoinsToCopper()}`);
+        const exchange: Exchanger = new Exchanger(
+          getCoins("gold"),
+          getCoins("silver"),
+          getCoins("copper")
+        );
 
         if (result !== null && result instanceof HTMLElement) {
           result.innerHTML = `${exchange.allCoinsToCopper()}`;
         }
-
-        // console.log(
-        //   `values: ${getTempGoldCoins()}, ${getTempSilverCoins()}, ${getTempCooperCoins()}`
-        // );
       });
     } else {
       throw new Error("Html Element is not a button");
@@ -36,31 +32,13 @@ function initEventListener() {
   }
 }
 
-function getTempGoldCoins(): number {
-  const goldCoins: HTMLElement | null = document.querySelector("#gold-coins");
-  if (goldCoins !== null && goldCoins instanceof HTMLInputElement) {
-    return goldCoins.valueAsNumber;
+function getCoins(material: string): number {
+  const coins: HTMLInputElement | null = document.querySelector(
+    `#${material}-coins`
+  );
+  if (coins !== null && coins instanceof HTMLInputElement) {
+    return coins.valueAsNumber;
   } else {
-    throw new Error("Html Element is null or wrong");
-  }
-}
-
-function getTempSilverCoins(): number {
-  const silverCoins: HTMLElement | null =
-    document.querySelector("#silver-coins");
-  if (silverCoins !== null && silverCoins instanceof HTMLInputElement) {
-    return silverCoins.valueAsNumber;
-  } else {
-    throw new Error("Html Element is null or wrong");
-  }
-}
-
-function getTempCooperCoins(): number {
-  const copperCoins: HTMLElement | null =
-    document.querySelector("#copper-coins");
-  if (copperCoins !== null && copperCoins instanceof HTMLInputElement) {
-    return copperCoins.valueAsNumber;
-  } else {
-    throw new Error("Html Element is null or wrong");
+    throw new Error(`Input Element is null or wrong`);
   }
 }

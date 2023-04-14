@@ -166,14 +166,11 @@ function initEventListener() {
       button.addEventListener("click", function (event) {
         event.preventDefault();
         event.stopPropagation();
-        var exchange = new Exchanger_1.Exchanger(getTempGoldCoins(), getTempSilverCoins(), getTempCooperCoins());
-        console.log("all to copper: ".concat(exchange.allCoinsToCopper()));
+        getCoins("copper");
+        var exchange = new Exchanger_1.Exchanger(getCoins("gold"), getCoins("silver"), getCoins("copper"));
         if (result !== null && result instanceof HTMLElement) {
           result.innerHTML = "".concat(exchange.allCoinsToCopper());
         }
-        // console.log(
-        //   `values: ${getTempGoldCoins()}, ${getTempSilverCoins()}, ${getTempCooperCoins()}`
-        // );
       });
     } else {
       throw new Error("Html Element is not a button");
@@ -182,28 +179,12 @@ function initEventListener() {
     throw new Error("Button for exchange not found!");
   }
 }
-function getTempGoldCoins() {
-  var goldCoins = document.querySelector("#gold-coins");
-  if (goldCoins !== null && goldCoins instanceof HTMLInputElement) {
-    return goldCoins.valueAsNumber;
+function getCoins(material) {
+  var coins = document.querySelector("#".concat(material, "-coins"));
+  if (coins !== null && coins instanceof HTMLInputElement) {
+    return coins.valueAsNumber;
   } else {
-    throw new Error("Html Element is null or wrong");
-  }
-}
-function getTempSilverCoins() {
-  var silverCoins = document.querySelector("#silver-coins");
-  if (silverCoins !== null && silverCoins instanceof HTMLInputElement) {
-    return silverCoins.valueAsNumber;
-  } else {
-    throw new Error("Html Element is null or wrong");
-  }
-}
-function getTempCooperCoins() {
-  var copperCoins = document.querySelector("#copper-coins");
-  if (copperCoins !== null && copperCoins instanceof HTMLInputElement) {
-    return copperCoins.valueAsNumber;
-  } else {
-    throw new Error("Html Element is null or wrong");
+    throw new Error("Input Element is null or wrong");
   }
 }
 },{"./Exchanger":"../src/Exchanger.ts"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
@@ -231,7 +212,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49799" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58546" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
