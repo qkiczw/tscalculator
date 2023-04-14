@@ -12,7 +12,7 @@ function initEventListener() {
         event.preventDefault();
         event.stopPropagation();
 
-        getCoins("copper");
+        showResultBox();
 
         const exchange: Exchanger = new Exchanger(
           getCoins("gold"),
@@ -41,4 +41,20 @@ function getCoins(material: string): number {
   } else {
     throw new Error(`Input Element is null or wrong`);
   }
+}
+
+function showResultBox(): void {
+  const resultContainer: HTMLElement | null =
+    document.querySelector(".result-container");
+
+    if (
+      resultContainer !== null &&
+      resultContainer instanceof HTMLElement
+    ) {
+      resultContainer.style.opacity = "1";
+      resultContainer.style.transform = "translateY(10px)";
+    } else {
+      throw new Error(`HTML Element is null or wrong`);
+    }
+  
 }

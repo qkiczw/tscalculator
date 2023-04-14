@@ -5,12 +5,40 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>TS Calculator from udemy Course</title>
+    <style>
+      @media only screen and (max-width: 768px) {
+        .form {
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+          align-items: center;
+          justify-content: center;
+        }
+      }
+      .result-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 20px 20px;
+        color: white;
+        background-color: #b87333;
+        border: 1px solid #995a20;
+        border-radius: 5px;
+        max-width: 300px;
+        height: 30px;
+        opacity: 0;
+        transition: all 0.2s ease-in-out;
+      }
+      .result {
+        font-weight: bold;
+      }
+    </style>
   </head>
   <body>
     <h1>Cold and silver to copper coins Calculator</h1>
     <main>
       <section>
-        <form action="">
+        <form action="" class="form">
           <label for="gold-coins">
             Gold coins
             <input type="number" id="gold-coins" value="0" />
@@ -27,7 +55,9 @@
         </form>
       </section>
       <section>
-        <div class="result"></div>
+        <div class="result-container">
+          <p>&#128176; You Have <span class="result"> </span> copper coins</p>
+        </div>
       </section>
     </main>
     <script src="../src/Index.ts"></script>

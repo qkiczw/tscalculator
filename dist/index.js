@@ -117,86 +117,58 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"../src/Exchanger.ts":[function(require,module,exports) {
-"use strict";
-
-function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
-function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.Exchanger = void 0;
-var Exchanger = /*#__PURE__*/function () {
-  function Exchanger(gold, silver, copper) {
-    _classCallCheck(this, Exchanger);
-    this.gold = gold;
-    this.silver = silver;
-    this.copper = copper;
+})({"../node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
+var bundleURL = null;
+function getBundleURLCached() {
+  if (!bundleURL) {
+    bundleURL = getBundleURL();
   }
-  //   Every gold coin is worth 20 silver coins
-  //   Every silver coin is worth 12 cooper coins
-  _createClass(Exchanger, [{
-    key: "allCoinsToCopper",
-    value: function allCoinsToCopper() {
-      var goldToCopper = this.gold * 20 * 12;
-      var silverToCopper = this.silver * 12;
-      return goldToCopper + silverToCopper + this.copper;
+  return bundleURL;
+}
+function getBundleURL() {
+  // Attempt to find the URL of the current script and use that as the base URL
+  try {
+    throw new Error();
+  } catch (err) {
+    var matches = ('' + err.stack).match(/(https?|file|ftp|chrome-extension|moz-extension):\/\/[^)\n]+/g);
+    if (matches) {
+      return getBaseURL(matches[0]);
     }
-  }]);
-  return Exchanger;
-}();
-exports.Exchanger = Exchanger;
-},{}],"../src/Index.ts":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-var Exchanger_1 = require("./Exchanger");
-var button = document.querySelector("#count");
-var result = document.querySelector(".result");
-initEventListener();
-function initEventListener() {
-  if (button !== null) {
-    if (button instanceof HTMLButtonElement) {
-      button.addEventListener("click", function (event) {
-        event.preventDefault();
-        event.stopPropagation();
-        showResultBox();
-        var exchange = new Exchanger_1.Exchanger(getCoins("gold"), getCoins("silver"), getCoins("copper"));
-        if (result !== null && result instanceof HTMLElement) {
-          result.innerHTML = "".concat(exchange.allCoinsToCopper());
-        }
-      });
-    } else {
-      throw new Error("Html Element is not a button");
+  }
+  return '/';
+}
+function getBaseURL(url) {
+  return ('' + url).replace(/^((?:https?|file|ftp|chrome-extension|moz-extension):\/\/.+)?\/[^/]+(?:\?.*)?$/, '$1') + '/';
+}
+exports.getBundleURL = getBundleURLCached;
+exports.getBaseURL = getBaseURL;
+},{}],"../node_modules/parcel-bundler/src/builtins/css-loader.js":[function(require,module,exports) {
+var bundle = require('./bundle-url');
+function updateLink(link) {
+  var newLink = link.cloneNode();
+  newLink.onload = function () {
+    link.remove();
+  };
+  newLink.href = link.href.split('?')[0] + '?' + Date.now();
+  link.parentNode.insertBefore(newLink, link.nextSibling);
+}
+var cssTimeout = null;
+function reloadCSS() {
+  if (cssTimeout) {
+    return;
+  }
+  cssTimeout = setTimeout(function () {
+    var links = document.querySelectorAll('link[rel="stylesheet"]');
+    for (var i = 0; i < links.length; i++) {
+      if (bundle.getBaseURL(links[i].href) === bundle.getBundleURL()) {
+        updateLink(links[i]);
+      }
     }
-  } else {
-    throw new Error("Button for exchange not found!");
-  }
+    cssTimeout = null;
+  }, 50);
 }
-function getCoins(material) {
-  var coins = document.querySelector("#".concat(material, "-coins"));
-  if (coins !== null && coins instanceof HTMLInputElement) {
-    return coins.valueAsNumber;
-  } else {
-    throw new Error("Input Element is null or wrong");
-  }
-}
-function showResultBox() {
-  var resultContainer = document.querySelector(".result-container");
-  if (resultContainer !== null && resultContainer instanceof HTMLElement) {
-    resultContainer.style.opacity = "1";
-    resultContainer.style.transform = "translateY(10px)";
-  } else {
-    throw new Error("HTML Element is null or wrong");
-  }
-}
-},{"./Exchanger":"../src/Exchanger.ts"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+module.exports = reloadCSS;
+},{"./bundle-url":"../node_modules/parcel-bundler/src/builtins/bundle-url.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -365,5 +337,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["../node_modules/parcel-bundler/src/builtins/hmr-runtime.js","../src/Index.ts"], null)
-//# sourceMappingURL=/Index.7f99787a.js.map
+},{}]},{},["../node_modules/parcel-bundler/src/builtins/hmr-runtime.js"], null)
+//# sourceMappingURL=/index.js.map
